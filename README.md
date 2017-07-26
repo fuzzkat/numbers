@@ -5,13 +5,14 @@ This Rails application lists out all the numbers from one to a million in multip
 
 Written using Ruby 2.4.1, although lower ruby versions should be compatible.
 
-To run the application;
-
+To run the application (assuming you have ruby and bundler installed);
+```
 > bundle install
-> rails s
-
+> bundle exec rails s
+```
 then go to http://localhost:3000/
 
 The test suite can be run by executing;
+```
 > rails test
-
+```
