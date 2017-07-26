@@ -12,5 +12,3 @@ then go to http://localhost:3000/
 The test suite can be run by executing;
 > rails test
 
-## TODO
-* Correct the number to words translation for en-GB to use "and" as a delimiter between Thousands and Hundreds.
