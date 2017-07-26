@@ -1,6 +1,9 @@
-# README
+# Numbers
+## Web interface to discover the numbers from one to a million
 
-This application has been written using Ruby 2.4.1
+This Rails application lists out all the numbers from one to a million in multiple languages and page sizes.
+
+Written using Ruby 2.4.1, although lower ruby versions should be compatible.
 
 To run the application;
 
