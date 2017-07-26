@@ -8,7 +8,7 @@
   <%= submit_tag("Reload") %>
   <%= hidden_field_tag(:page, @pager.page) %>
 <% end %>
-<p><%= page_control @pager, @locale %></p>
+<p><%= page_control @pager, @locale, self %></p>
 
 <p class="numbers">
   <% @pager.this_page.each_with_index do |number, index| %>
@@ -16,4 +16,5 @@
   <% end %>
 </p>
 
-<p><%= page_control @pager, @locale %></p>
+<p><%= page_control @pager, @locale, self %></p>
+
