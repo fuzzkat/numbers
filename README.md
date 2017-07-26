@@ -14,5 +14,5 @@ then go to http://localhost:3000/
 
 The test suite can be run by executing;
 ```
-> rails test
+> bundle exec rails test
 ```
