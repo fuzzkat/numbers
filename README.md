@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application has been written using Ruby 2.4.1
 
-Things you may want to cover:
+To run the application;
 
-* Ruby version
+> bundle install
+> rails s
 
-* System dependencies
+then go to http://localhost:3000/
 
-* Configuration
+The test suite can be run by executing;
+> rails test
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## TODO
+* Correct the number to words translation for en-GB to use "and" as a delimiter between Thousands and Hundreds.

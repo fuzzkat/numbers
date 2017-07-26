@@ -1,5 +1,3 @@
-include ActionView::Helpers::AssetTagHelper
-
 module PageControlHelper
   SPACER = ' &nbsp; '
 
