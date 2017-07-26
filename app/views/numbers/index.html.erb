@@ -1,0 +1,19 @@
+<h1>You're <%= @pager.count.to_words.titlecase %> in a Million!</h1>
+
+<%= form_tag("/", method: 'get') do %>
+  <%= label_tag(:locale, "Locale:") %>
+  <%= select_tag(:locale, options_for_select(@locales, @locale), { onchange: 'if(this.value != 0) { this.form.submit(); }' }) %> 
+  <%= label_tag(:count, "Numbers per Page:") %>
+  <%= text_field_tag(:count, @pager.count) %>
+  <%= submit_tag("Reload") %>
+  <%= hidden_field_tag(:page, @pager.page) %>
+<% end %>
+<p><%= page_control @pager, @locale %></p>
+
+<p class="numbers">
+  <% @pager.this_page.each_with_index do |number, index| %>
+    <%= I18n.with_locale(@locale) { number.to_words } %><% if index != @pager.this_page.size - 1 %>, <% end %>
+  <% end %>
+</p>
+
+<p><%= page_control @pager, @locale %></p>
