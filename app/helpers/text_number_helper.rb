@@ -18,8 +18,7 @@ module TextNumberHelper
     thousands_string = thousands_as_words(thousands)
     millions_string = millions_as_words(millions)
 
-    result = "" 
-    result.concat millions_string
+    result = millions_string
     result.concat thousands_string
     result.concat ' ' unless thousands_string.empty? or lowest_three_digits_string.empty?
     result.concat lowest_three_digits_string
@@ -32,8 +31,7 @@ module TextNumberHelper
     hundreds = digits.pop
     hundreds_string = hundreds_as_words(hundreds)
 
-    result = ""
-    result.concat hundreds_string
+    result = hundreds_string
     result.concat ' and ' unless hundreds_string.empty? or tens_string.empty?
     result.concat tens_string
   end
@@ -41,32 +39,32 @@ module TextNumberHelper
   def two_digit_number_as_word digit_array
     tens, units = digit_array
     if tens < 2
-      get_less_than_20_number(tens*10 + units)
+      less_than_20_as_word(tens*10 + units)
     else
-      units_string = units == 0 ? '' : "-#{get_less_than_20_number(units)}"
-      get_multiple_of_ten_as_word(tens) + units_string
+      units_string = (units > 0) ? "-#{less_than_20_as_word(units)}" : ''
+      multiple_of_ten_as_word(tens) + units_string
     end
-  end
-
-  def thousands_as_words thousands
-    thousands_string = three_digit_number_as_words thousands
-    thousands_string.concat(' thousand') unless thousands_string.empty?
-    thousands_string
   end
 
   def millions_as_words millions
     millions > 0 ? 'one million' : ''
   end
 
-  def hundreds_as_words hundreds
-    hundreds > 0 ? get_less_than_20_number(hundreds) + ' hundred' : ''
+  def thousands_as_words thousands
+    thousands_string = three_digit_number_as_words(thousands)
+    thousands_string.concat(' thousand') unless thousands_string.empty?
+    thousands_string
   end
 
-  def get_less_than_20_number digit
+  def hundreds_as_words hundreds
+    hundreds > 0 ? less_than_20_as_word(hundreds) + ' hundred' : ''
+  end
+
+  def less_than_20_as_word digit
     digit == 0 ? '' : DIGITS[digit-1]
   end
 
-  def get_multiple_of_ten_as_word tens
+  def multiple_of_ten_as_word tens
     tens == 0 ? '' : TENS[tens-1]
   end
 
