@@ -21,10 +21,12 @@ module TextNumberHelper
     lowest_three_digits = digits.pop(3)
     thousands = digits.pop(3)
 
-    lowest_three_digits_string = three_digit_number_as_words(lowest_three_digits)
     thousands_string = thousands_as_words(thousands)
+    lowest_three_digits_string = three_digit_number_as_words(lowest_three_digits, !thousands_string.empty?)
 
-    concatenate_with thousands_string, ' ', lowest_three_digits_string
+    result = thousands_string
+    result.concat ' ' unless thousands_string.empty? or lowest_three_digits_string.empty?
+    result.concat lowest_three_digits_string
   end
 
   def get_padded_digits number
@@ -32,14 +34,20 @@ module TextNumberHelper
     digits = padded_number.split('').collect{|char| char.to_i }
   end
 
-  def three_digit_number_as_words digits
+  def three_digit_number_as_words digits, is_after_thousands
     tens = digits.pop(2)
     hundreds = digits.pop
 
     tens_string = two_digit_number_as_word(tens)
     hundreds_string = hundreds_as_words(hundreds)
 
-    concatenate_with hundreds_string, ' and ', tens_string
+    result = hundreds_string
+    if (!hundreds_string.empty? and !tens_string.empty?)
+      result.concat ' and '
+    elsif (is_after_thousands and !tens_string.empty?)
+      result.concat 'and '
+    end
+    result.concat tens_string
   end
 
   def two_digit_number_as_word digits
@@ -53,7 +61,7 @@ module TextNumberHelper
   end
 
   def thousands_as_words thousands
-    result = three_digit_number_as_words(thousands)
+    result = three_digit_number_as_words(thousands, false)
     result.concat(' thousand') unless result.empty?
     result
   end

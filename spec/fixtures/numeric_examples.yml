@@ -50,7 +50,7 @@ thousands:
   111111: one hundred and eleven thousand one hundred and eleven
   999000: nine hundred and ninety-nine thousand
   999001: nine hundred and ninety-nine thousand and one
-  999001: nine hundred and ninety-nine thousand and ninety-nine
+  999099: nine hundred and ninety-nine thousand and ninety-nine
   999501: nine hundred and ninety-nine thousand five hundred and one
   999999: nine hundred and ninety-nine thousand nine hundred and ninety-nine
 millions:
