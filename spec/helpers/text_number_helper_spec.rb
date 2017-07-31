@@ -65,24 +65,6 @@ describe TextNumberHelper, type: :helper do
     end
   end
 
-  describe '.millions_as_words' do
-    context 'one million' do
-      it "should return the word equivalent of one million" do
-        expect(helper.millions_as_words(1)).to eq('one million')
-      end
-    end
-    context 'zero millions' do
-      subject { helper.millions_as_words(0) }
-      it { is_expected.to eq('') }
-    end
-    context 'called multiple times' do
-      it "should not change" do
-        expect(helper.millions_as_words(1)).to eq('one million')
-        expect(helper.millions_as_words(1)).to eq('one million')
-      end
-    end
-  end
-
   describe '.to_words' do
     context "with a number outside of the range zero to 1 million" do
       it "should return the original number as a string" do

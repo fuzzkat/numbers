@@ -5,6 +5,7 @@ module TextNumberHelper
   def to_words number
     return number.to_s unless is_valid? number
     return 'zero' if number == 0
+    return 'one million' if number == 1000000
 
     padded_number = "%07d" % number
 
@@ -12,14 +13,11 @@ module TextNumberHelper
   
     lowest_three_digits = digits.pop(3)
     thousands = digits.pop(3)
-    millions = digits.pop
 
     lowest_three_digits_string = three_digit_number_as_words(lowest_three_digits)
     thousands_string = thousands_as_words(thousands)
-    millions_string = millions_as_words(millions)
 
-    result = millions_string
-    result.concat thousands_string
+    result = thousands_string
     result.concat ' ' unless thousands_string.empty? or lowest_three_digits_string.empty?
     result.concat lowest_three_digits_string
   end
@@ -44,10 +42,6 @@ module TextNumberHelper
       units_string = (units > 0) ? "-#{less_than_20_as_word(units)}" : ''
       multiple_of_ten_as_word(tens) + units_string
     end
-  end
-
-  def millions_as_words millions
-    millions > 0 ? 'one million' : ''
   end
 
   def thousands_as_words thousands
