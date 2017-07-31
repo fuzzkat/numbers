@@ -12,7 +12,8 @@ To run the application (assuming you have ruby and bundler installed);
 ```
 then go to http://localhost:3000/
 
-The test suite can be run by executing;
+The test suites can be run by executing;
 ```
 > bundle exec rails test
+> bundle exec rails rspec
 ```
