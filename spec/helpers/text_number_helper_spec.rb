@@ -91,5 +91,4 @@ describe TextNumberHelper, type: :helper do
     end
 
   end
-
 end
