@@ -2,42 +2,74 @@ require 'rails_helper'
 
 describe TextNumberHelper, type: :helper do
 
-  context "with a number outside of the range zero to 1 million" do
-    it "should return the original number as a string" do
-      expect(helper.to_words(-1)).to eq("-1")
-      expect(helper.to_words(1000001)).to eq("1000001")
+  example_data = YAML.load_file('spec/fixtures/numeric_examples.yml')
+
+  describe '.get_two_digit_number' do
+    context 'zero digit' do
+      subject { helper.get_two_digit_number([0,0]) }
+      it { is_expected.to eq('') }
+    end
+
+    ['ones', 'teens', 'tens'].each do |section|
+      data = example_data[section].reject{|i| i==0}
+      context section do
+        data.each_pair do |number, word|
+          digit_array = ("%02d" % number).split("").collect{|ch| ch.to_i}
+          context digit_array.to_s do
+            subject { helper.get_two_digit_number(digit_array) }
+            it { is_expected.to eq(word) }
+          end
+        end
+
+      end
     end
   end
 
-  context "with a number that is not an integer" do
-    it "should return the original number as a string" do
-      expect(helper.to_words(567.9)).to eq("567.9")
+  describe '.get_hundreds' do
+    context 'non-zero number of hundreds' do
+      it "should return the word equivalent of digit with hundred postfix" do
+        expect(helper.get_hundreds(1)).to eq('one hundred')
+        expect(helper.get_hundreds(4)).to eq('four hundred')
+        expect(helper.get_hundreds(9)).to eq('nine hundred')
+      end
+    end
+    context 'zero hundreds' do
+      subject { helper.get_hundreds(0) }
+      it { is_expected.to eq('') }
+    end
+    context 'bug checking' do
+      it "should not change when called multiple times" do
+        expect(helper.get_hundreds(1)).to eq('one hundred')
+        expect(helper.get_hundreds(1)).to eq('one hundred')
+      end
     end
   end
 
-  context "with the unit and teen integers" do
-    it "should return the string equivalent" do
-      expect(helper.to_words(0)).to eq("zero")
-      expect(helper.to_words(1)).to eq("one")
-      expect(helper.to_words(2)).to eq("two")
-      expect(helper.to_words(3)).to eq("three")
-      expect(helper.to_words(4)).to eq("four")
-      expect(helper.to_words(5)).to eq("five")
-      expect(helper.to_words(6)).to eq("six")
-      expect(helper.to_words(7)).to eq("seven")
-      expect(helper.to_words(8)).to eq("eight")
-      expect(helper.to_words(9)).to eq("nine")
-      expect(helper.to_words(10)).to eq("ten")
-      expect(helper.to_words(11)).to eq("eleven")
-      expect(helper.to_words(12)).to eq("twelve")
-      expect(helper.to_words(13)).to eq("thirteen")
-      expect(helper.to_words(14)).to eq("fourteen")
-      expect(helper.to_words(15)).to eq("fifteen")
-      expect(helper.to_words(16)).to eq("sixteen")
-      expect(helper.to_words(17)).to eq("seventeen")
-      expect(helper.to_words(18)).to eq("eighteen")
-      expect(helper.to_words(19)).to eq("nineteen")
+  describe '.to_words' do
+    context "with a number outside of the range zero to 1 million" do
+      it "should return the original number as a string" do
+        expect(helper.to_words(-1)).to eq("-1")
+        expect(helper.to_words(1000001)).to eq("1000001")
+      end
     end
+
+    context "with a number that is not an integer" do
+      it "should return the original number as a string" do
+        expect(helper.to_words(567.9)).to eq("567.9")
+      end
+    end
+    
+    example_data.each_pair do |number_type, examples|
+      context number_type do
+        examples.each do |input, expectation|
+          context input do
+            subject { helper.to_words(input) }
+            it { is_expected.to eq(expectation) }
+          end
+        end
+      end
+    end
+
   end
 
 end

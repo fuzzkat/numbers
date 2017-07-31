@@ -1,0 +1,57 @@
+ones:
+  0: zero
+  1: one
+  2: two
+  3: three
+  4: four
+  5: five
+  6: six
+  7: seven
+  8: eight
+  9: nine
+teens:
+  11: eleven
+  12: twelve
+  13: thirteen
+  14: fourteen
+  15: fifteen
+  16: sixteen
+  17: seventeen
+  18: eighteen
+  19: nineteen
+tens:
+  10: ten
+  20: twenty
+  21: twenty-one
+  80: eighty
+  90: ninety
+  99: ninety-nine
+hundreds:
+  100: one hundred
+  101: one hundred and one
+  111: one hundred and eleven
+  120: one hundred and twenty
+  121: one hundred and twenty-one
+  900: nine hundred
+  909: nine hundred and nine
+  919: nine hundred and nineteen
+  990: nine hundred and ninety
+  999: nine hundred and ninety-nine
+# thousands:
+  # 1000: one thousand
+#  1111: one thousand one hundred and eleven
+#  2000: two thousand
+#  4000: four thousand
+#  5000: five thousand
+#  11000: eleven thousand
+#  21000: twenty-one thousand
+#  100100: one hundred thousand one hundred
+#  100111: one hundred thousand one hundred and eleven
+#  111111: one hundred and eleven thousand one hundred and eleven
+#  999000: nine hundred and ninety-nine thousand
+#  999999: nine hundred and ninety-nine thousand nine hundred and ninety-nine
+#millions:
+#  1000000: one million
+#  2000000: two million
+#  4000000: four million
+#  5000000: five million
