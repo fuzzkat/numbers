@@ -4,9 +4,9 @@ describe TextNumberHelper, type: :helper do
 
   example_data = YAML.load_file('spec/fixtures/numeric_examples.yml')
 
-  describe '.get_two_digit_number' do
+  describe '.two_digit_number_as_word' do
     context 'zero digit' do
-      subject { helper.get_two_digit_number([0,0]) }
+      subject { helper.two_digit_number_as_word([0,0]) }
       it { is_expected.to eq('') }
     end
 
@@ -16,7 +16,7 @@ describe TextNumberHelper, type: :helper do
         data.each_pair do |number, word|
           digit_array = ("%02d" % number).split("").collect{|ch| ch.to_i}
           context digit_array.to_s do
-            subject { helper.get_two_digit_number(digit_array) }
+            subject { helper.two_digit_number_as_word(digit_array) }
             it { is_expected.to eq(word) }
           end
         end
@@ -25,22 +25,60 @@ describe TextNumberHelper, type: :helper do
     end
   end
 
-  describe '.get_hundreds' do
+  describe '.hundreds_as_words' do
     context 'non-zero number of hundreds' do
       it "should return the word equivalent of digit with hundred postfix" do
-        expect(helper.get_hundreds(1)).to eq('one hundred')
-        expect(helper.get_hundreds(4)).to eq('four hundred')
-        expect(helper.get_hundreds(9)).to eq('nine hundred')
+        expect(helper.hundreds_as_words(1)).to eq('one hundred')
+        expect(helper.hundreds_as_words(4)).to eq('four hundred')
+        expect(helper.hundreds_as_words(9)).to eq('nine hundred')
       end
     end
     context 'zero hundreds' do
-      subject { helper.get_hundreds(0) }
+      subject { helper.hundreds_as_words(0) }
       it { is_expected.to eq('') }
     end
-    context 'bug checking' do
-      it "should not change when called multiple times" do
-        expect(helper.get_hundreds(1)).to eq('one hundred')
-        expect(helper.get_hundreds(1)).to eq('one hundred')
+    context 'called multiple times' do
+      it "should not change" do
+        expect(helper.hundreds_as_words(1)).to eq('one hundred')
+        expect(helper.hundreds_as_words(1)).to eq('one hundred')
+      end
+    end
+  end
+
+  describe '.thousands_as_words' do
+    context 'non-zero number of thousands' do
+      it "should return the word equivalent of digit with thousands postfix" do
+        expect(helper.thousands_as_words([1,2,3])).to eq('one hundred and twenty-three thousand')
+        expect(helper.thousands_as_words([0,0,4])).to eq('four thousand')
+        expect(helper.thousands_as_words([0,0,9])).to eq('nine thousand')
+      end
+    end
+    context 'zero thousands' do
+      subject { helper.thousands_as_words([0,0,0]) }
+      it { is_expected.to eq('') }
+    end
+    context 'called multiple times' do
+      it "should not change" do
+        expect(helper.thousands_as_words([0,0,1])).to eq('one thousand')
+        expect(helper.thousands_as_words([0,0,1])).to eq('one thousand')
+      end
+    end
+  end
+
+  describe '.millions_as_words' do
+    context 'one million' do
+      it "should return the word equivalent of one million" do
+        expect(helper.millions_as_words(1)).to eq('one million')
+      end
+    end
+    context 'zero millions' do
+      subject { helper.millions_as_words(0) }
+      it { is_expected.to eq('') }
+    end
+    context 'called multiple times' do
+      it "should not change" do
+        expect(helper.millions_as_words(1)).to eq('one million')
+        expect(helper.millions_as_words(1)).to eq('one million')
       end
     end
   end

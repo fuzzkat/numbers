@@ -37,21 +37,19 @@ hundreds:
   919: nine hundred and nineteen
   990: nine hundred and ninety
   999: nine hundred and ninety-nine
-# thousands:
-  # 1000: one thousand
-#  1111: one thousand one hundred and eleven
-#  2000: two thousand
-#  4000: four thousand
-#  5000: five thousand
-#  11000: eleven thousand
-#  21000: twenty-one thousand
-#  100100: one hundred thousand one hundred
-#  100111: one hundred thousand one hundred and eleven
-#  111111: one hundred and eleven thousand one hundred and eleven
-#  999000: nine hundred and ninety-nine thousand
-#  999999: nine hundred and ninety-nine thousand nine hundred and ninety-nine
-#millions:
-#  1000000: one million
-#  2000000: two million
-#  4000000: four million
-#  5000000: five million
+thousands:
+  1000: one thousand
+  1111: one thousand one hundred and eleven
+  2000: two thousand
+  4000: four thousand
+  5000: five thousand
+  11000: eleven thousand
+  21000: twenty-one thousand
+  100100: one hundred thousand one hundred
+  100111: one hundred thousand one hundred and eleven
+  111111: one hundred and eleven thousand one hundred and eleven
+  999000: nine hundred and ninety-nine thousand
+  999501: nine hundred and ninety-nine thousand five hundred and one
+  999999: nine hundred and ninety-nine thousand nine hundred and ninety-nine
+millions:
+  1000000: one million
