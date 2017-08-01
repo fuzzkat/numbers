@@ -4,10 +4,10 @@ describe TextNumberHelper, type: :helper do
 
   example_data = YAML.load_file('spec/fixtures/numeric_examples.yml')
 
-  describe '.two_digit_number_as_word' do
+  describe '.two_digit_number_as_words' do
     context 'zero digit' do
-      subject { helper.two_digit_number_as_word([0,0]) }
-      it { is_expected.to eq('') }
+      subject { helper.two_digit_number_as_words([0,0]) }
+      it { is_expected.to eq([]) }
     end
 
     ['ones', 'teens', 'tens'].each do |section|
@@ -16,8 +16,8 @@ describe TextNumberHelper, type: :helper do
         data.each_pair do |number, word|
           digit_array = ("%02d" % number).split("").collect{|ch| ch.to_i}
           context digit_array.to_s do
-            subject { helper.two_digit_number_as_word(digit_array) }
-            it { is_expected.to eq(word) }
+            subject { helper.two_digit_number_as_words(digit_array) }
+            it { is_expected.to eq([word]) }
           end
         end
 
@@ -28,19 +28,19 @@ describe TextNumberHelper, type: :helper do
   describe '.hundreds_as_words' do
     context 'non-zero number of hundreds' do
       it "should return the word equivalent of digit with hundred postfix" do
-        expect(helper.hundreds_as_words(1)).to eq('one hundred')
-        expect(helper.hundreds_as_words(4)).to eq('four hundred')
-        expect(helper.hundreds_as_words(9)).to eq('nine hundred')
+        expect(helper.hundreds_as_words(1)).to eq(['one', 'hundred'])
+        expect(helper.hundreds_as_words(4)).to eq(['four', 'hundred'])
+        expect(helper.hundreds_as_words(9)).to eq(['nine', 'hundred'])
       end
     end
     context 'zero hundreds' do
       subject { helper.hundreds_as_words(0) }
-      it { is_expected.to eq('') }
+      it { is_expected.to eq([]) }
     end
     context 'called multiple times' do
       it "should not change" do
-        expect(helper.hundreds_as_words(1)).to eq('one hundred')
-        expect(helper.hundreds_as_words(1)).to eq('one hundred')
+        expect(helper.hundreds_as_words(1)).to eq(['one', 'hundred'])
+        expect(helper.hundreds_as_words(1)).to eq(['one', 'hundred'])
       end
     end
   end
@@ -48,19 +48,20 @@ describe TextNumberHelper, type: :helper do
   describe '.thousands_as_words' do
     context 'non-zero number of thousands' do
       it "should return the word equivalent of digit with thousands postfix" do
-        expect(helper.thousands_as_words([1,2,3])).to eq('one hundred and twenty-three thousand')
-        expect(helper.thousands_as_words([0,0,4])).to eq('four thousand')
-        expect(helper.thousands_as_words([0,0,9])).to eq('nine thousand')
+        expect(helper.thousands_as_words([1,2,3])).to eq(%W[one hundred and twenty-three thousand])
+        expect(helper.thousands_as_words([0,0,4])).to eq(%W[four thousand])
+        expect(helper.thousands_as_words([0,0,9])).to eq(%W[nine thousand])
+        expect(helper.thousands_as_words([0,0,1])).to eq(%W[one thousand])
       end
     end
     context 'zero thousands' do
       subject { helper.thousands_as_words([0,0,0]) }
-      it { is_expected.to eq('') }
+      it { is_expected.to eq([]) }
     end
     context 'called multiple times' do
       it "should not change" do
-        expect(helper.thousands_as_words([0,0,1])).to eq('one thousand')
-        expect(helper.thousands_as_words([0,0,1])).to eq('one thousand')
+        expect(helper.thousands_as_words([0,0,1])).to eq(%W[one thousand])
+        expect(helper.thousands_as_words([0,0,1])).to eq(%W[one thousand])
       end
     end
   end
